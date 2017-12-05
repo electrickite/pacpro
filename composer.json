@@ -1,0 +1,17 @@
+{
+    "name": "osucomm/pacpro",
+    "description": "A simple transport package provider for MODX Revolution.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Corey Hinshaw",
+            "email": "hinshaw.25@osu.edu"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.0",
+        "monolog/monolog": "^1.17",
+        "slim/twig-view": "^2.3",
+        "vlucas/phpdotenv": "^2.4"
+    }
+}
