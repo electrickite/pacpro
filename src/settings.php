@@ -13,7 +13,6 @@ return [
     'settings' => [
         'displayErrorDetails' => (strtolower(getenv('DEBUG')) == 'true'),
         'addContentLengthHeader' => false,
-        'data_path' => __DIR__ . '/../data/',
         'packages_path' => __DIR__ . '/../packages/',
 
         'logger' => [
