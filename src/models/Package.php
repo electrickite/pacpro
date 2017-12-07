@@ -13,7 +13,9 @@ class Package extends ProviderBase
     }
 
     public static function search($query) {
-        return self::packageQuery('*/*' . $query . '*');
+        return array_filter(self::all(), function($package, $key) use ($query) {
+            return strpos(strtolower($package->name), strtolower($query)) !== false;
+        }, ARRAY_FILTER_USE_BOTH);
     }
 
     protected static function packageQuery($pattern) {
