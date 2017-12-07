@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository>
+  <id>{{ repo.id }}</id>
+  <name>{{ repo.name }}</name>
+  <description><![CDATA[{{ repo.description }}]]></description>
+  <createdon>{{ repo.created_on }}</createdon>
+  <rank>{{ repo.rank }}</rank>
+  <packages>{{ repo.totalPackages }}</packages>
+  <tag>
+    <id>{{ repo.id }}</id>
+    <name>All</name>
+    <packages>{{ repo.totalPackages }}</packages>
+    <templated>0</templated>
+  </tag>
+  <templated>{{ repo.templated | number_format }}</templated>
+</repository>

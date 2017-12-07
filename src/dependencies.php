@@ -3,6 +3,9 @@
 // DIC configuration
 $container = $app->getContainer();
 
+// Configure classes
+ProviderBase::setBasePath($container->get('settings')['packages_path']);
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

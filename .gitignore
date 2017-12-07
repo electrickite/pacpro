@@ -2,6 +2,8 @@
 vendor/*
 composer.phar
 /log/*.log
+/packages
+/data
 
 # OSX hidden files
 .DS_Store
