@@ -48,7 +48,7 @@ $container['notAllowedHandler'] = function ($c) {
         return $c->get('view')->render($response, $settings['template'], [
             'status' => 405,
             'message' => $settings['not_allowed'] . implode(', ', $methods)
-        ])->withStatus(405)->withHeader('Allow', implode(', ', $methods));;
+        ])->withStatus(405)->withHeader('Allow', implode(', ', $methods));
     };
 };
 

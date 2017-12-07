@@ -34,5 +34,11 @@ $app->add(function (Request $request, Response $response, callable $next) {
 
 // Set global response content type
 $app->add(function ($request, $response, $next) {
-    return $next($request, $response)->withHeader('Content-Type', 'application/xml');
+    $response = $next($request, $response);
+    if ($response->getHeaderLine('Content-Type') != 'application/octet-stream' &&
+        $response->getHeaderLine('Content-Type') != 'text/plain'
+    ) {
+        $response = $response->withHeader('Content-Type', 'application/xml');
+    }
+    return $response;
 });

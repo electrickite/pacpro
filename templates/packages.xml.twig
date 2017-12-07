@@ -3,37 +3,37 @@
   {% for package in packages %}
     <package>
       <id>{{ package.id }}</id>
-      <package>53aa1dc662cf246b7500464d</package>
-      <display_name>sample-1.2.3-pl</display_name>
+      <package>{{ package.package_name }}</package>
+      <display_name>{{ package.package_name }}</display_name>
       <name>{{ package.name }}</name>
-      <version>1.2.3</version>
-      <version_major>1</version_major>
-      <version_minor>2</version_minor>
-      <version_patch>3</version_patch>
-      <release>pl</release>
-      <vrelease>pl</vrelease>
+      <version>{{ package.version }}</version>
+      <version_major>{{ package.major_version }}</version_major>
+      <version_minor>{{ package.minor_version }}</version_minor>
+      <version_patch>{{ package.patch_version }}</version_patch>
+      <release>{{ package.release }}</release>
+      <vrelease>{{ package.release }}</vrelease>
       <vrelease_index></vrelease_index>
       <author>{{ package.author }}</author>
       <description><![CDATA[{{ package.description }}]]></description>
       <instructions></instructions>
       <changelog></changelog>
-      <createdon>{{ package.created_on }}</createdon>
+      <createdon>{{ package.transportPackageModTime }}</createdon>
       <createdby>{{ package.author }}</createdby>
-      <editedon>2017-12-06T21:38:19+0000</editedon>
-      <releasedon>2015-09-17T00:14:47+0000</releasedon>
-      <downloads>0</downloads>
+      <editedon>{{ package.transportPackageModTime }}</editedon>
+      <releasedon>{{ package.transportPackageModTime }}</releasedon>
+      <downloads></downloads>
       <approved>true</approved>
       <audited>false</audited>
       <featured>false</featured>
       <deprecated>false</deprecated>
       <license>{{ package.license }}</license>
       <smf_url></smf_url>
-      <repository>main</repository>
-      <supports>{{ package.supports }}</supports>
-      <location>http://modx.com/extras/download/?id=55fa05fadc532f0772065ad3</location>
-      <signature>sample-1.2.3-pl</signature>
+      <repository>{{ package.repo }}</repository>
+      <supports>{{ package.modx_max }}</supports>
+      <location>{{ base_url }}{{ path_for('download', { 'repo': package.repo, 'id': package.id }) }}</location>
+      <signature>{{ package.package_name }}</signature>
       <supports_db>{{ package.supports_db }}</supports_db>
-      <minimum_supports>{{ package.supports }}</minimum_supports>
+      <minimum_supports>{{ package.modx_min }}</minimum_supports>
       <breaks_at>10000000</breaks_at>
       <screenshot></screenshot>
       <categories></categories>

@@ -10,11 +10,6 @@ class Repository extends ProviderBase
         return $repositories;
     }
 
-    public function __construct($path) {
-        parent::__construct($path);
-        $this->setInfo();
-    }
-
     public function totalPackages() {
         return count(glob($this->path . '/*/info.yml'));
     }

@@ -15,6 +15,7 @@ abstract class ProviderBase
 
     public function __construct($path) {
         $this->path = self::$base_path . $path;
+        $this->setInfo();
     }
 
     public function __get($name) {
