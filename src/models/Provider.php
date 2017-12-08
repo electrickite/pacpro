@@ -2,27 +2,33 @@
 
 class Provider extends ProviderBase
 {
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('');
     }
 
-    public function totalPackages() {
+    public function totalPackages()
+    {
         return count(glob($this->path . '/*/*/info.yml'));
     }
 
-    public function popularPackages() {
+    public function popularPackages()
+    {
         return $this->parsePackageList($this->popular);
     }
 
-    public function newestPackages() {
+    public function newestPackages()
+    {
         return $this->parsePackageList($this->newest);
     }
 
-    public function repositories() {
+    public function repositories()
+    {
         return Repository::all();
     }
 
-    protected function parsePackageList($list) {
+    protected function parsePackageList($list)
+    {
         $packages = [];
         if (is_array($list)) {
             foreach ($list as $item) {

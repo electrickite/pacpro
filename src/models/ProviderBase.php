@@ -9,16 +9,19 @@ abstract class ProviderBase
     protected $path;
     protected $info = [];
 
-    public static function setBasePath($path) {
+    public static function setBasePath($path)
+    {
         self::$base_path = realpath($path);
     }
 
-    public function __construct($path) {
+    public function __construct($path)
+    {
         $this->setPath($path);
         $this->setInfo();
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return isset($this->info[$name]) ? $this->info[$name] : null;
     }
 
@@ -27,7 +30,8 @@ abstract class ProviderBase
         return property_exists($this, $property) || isset($this->info[$property]);
     }
 
-    protected function setPath($path) {
+    protected function setPath($path)
+    {
         $full_path = realpath(self::$base_path . DIRECTORY_SEPARATOR . $path);
 
         if ($full_path === false || !file_exists($full_path)) {
@@ -39,7 +43,8 @@ abstract class ProviderBase
         }
     }
 
-    protected function setInfo() {
+    protected function setInfo()
+    {
         $info = Yaml::parseFile($this->path . DIRECTORY_SEPARATOR . 'info.yml');
 
         if (is_array($info)) {

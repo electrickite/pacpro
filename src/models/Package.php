@@ -4,7 +4,8 @@ class Package extends ProviderBase
 {
     protected $repo;
 
-    public static function fromSignature($sig) {
+    public static function fromSignature($sig)
+    {
         $package_info = self::parseSignature($sig);
         $packages = self::packagePathQuery('*/' . $package_info['id']);
         if (empty($packages)) {
@@ -14,27 +15,32 @@ class Package extends ProviderBase
         return new Package($packages[0]['repo'], $packages[0]['path'], $package_info['version']);
     }
 
-    public static function all() {
+    public static function all()
+    {
         return self::packageQuery('*/*');
     }
 
-    public static function fromRepo($repo) {
+    public static function fromRepo($repo)
+    {
         return self::packageQuery($repo . '/*');
     }
 
-    public static function search($query) {
+    public static function search($query)
+    {
         return array_filter(self::all(), function($package, $key) use ($query) {
             return strpos(strtolower($package->name), strtolower($query)) !== false;
         }, ARRAY_FILTER_USE_BOTH);
     }
 
-    protected static function packageQuery($pattern) {
+    protected static function packageQuery($pattern)
+    {
         return array_map(function($match) {
             return new Package($match['repo'], $match['path']);
         }, self::packagePathQuery($pattern));
     }
 
-    protected static function packagePathQuery($pattern) {
+    protected static function packagePathQuery($pattern)
+    {
         return array_map(function($file) {
             $path = basename(dirname($file));
             $repo = basename(dirname(dirname($file)));
@@ -42,7 +48,8 @@ class Package extends ProviderBase
         }, glob(self::$base_path . '/' . $pattern . '/info.yml'));
     }
 
-    protected static function parseSignature($sig) {
+    protected static function parseSignature($sig)
+    {
         preg_match('/(.+)-([0-9]*\.[0-9]*\.[0-9]*-.*)/', $sig, $matches);
 
         if (isset($matches[1])) {
@@ -52,7 +59,8 @@ class Package extends ProviderBase
         }
     }
 
-    public function __construct($repo, $path, $version=null) {
+    public function __construct($repo, $path, $version=null)
+    {
         $this->repo = $repo;
         $this->setPath($this->repo . DIRECTORY_SEPARATOR . $path);
         $this->setInfo();
@@ -63,34 +71,41 @@ class Package extends ProviderBase
         }
     }
 
-    public function transportPackagePath() {
+    public function transportPackagePath()
+    {
         return $this->path . DIRECTORY_SEPARATOR . $this->transportPackageFileName();
     }
 
-    public function transportPackageFileName() {
+    public function transportPackageFileName()
+    {
         return $this->signature . '.transport.zip';
     }
 
-    public function transportPackageModTime() {
+    public function transportPackageModTime()
+    {
         $file = $this->transportPackagePath();
         if (file_exists($file)) {
             return date('c', filemtime($file));
         }
     }
 
-    public function currentSignature() {
+    public function currentSignature()
+    {
         return $this->buildSignature();
     }
 
-    public function requiresUpdate() {
+    public function requiresUpdate()
+    {
         return $this->signature != $this->currentSignature();
     }
 
-    public function currentPackage() {
+    public function currentPackage()
+    {
         return new self($this->repo, $this->id);
     }
 
-    protected function addPackageInfo($version) {
+    protected function addPackageInfo($version)
+    {
         $this->info['repo'] = $this->repo;
         $this->info['signature'] = $this->buildSignature($version);
 
@@ -104,7 +119,8 @@ class Package extends ProviderBase
         $this->info['patch_version'] = $version_numbers[2];
     }
 
-    protected function buildSignature($version=null) {
+    protected function buildSignature($version=null)
+    {
         return $this->id . '-' . ($version ?: $this->current);
     }
 }

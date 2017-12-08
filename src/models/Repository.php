@@ -2,7 +2,8 @@
 
 class Repository extends ProviderBase
 {
-    public static function all() {
+    public static function all()
+    {
         $repositories = [];
         foreach (glob(self::$base_path . '/*/info.yml') as $file) {
             $repositories[] = new Repository(basename(dirname($file)));
@@ -10,7 +11,8 @@ class Repository extends ProviderBase
         return $repositories;
     }
 
-    public function totalPackages() {
+    public function totalPackages()
+    {
         return count(glob($this->path . '/*/info.yml'));
     }
 }
