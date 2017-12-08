@@ -16,12 +16,12 @@ class ErrorHandler
     protected $message;
     protected $logger;
 
-    static public function notFound()
+    static public function notFound(Logger $logger)
     {
         return new static(self::NOT_FOUND);
     }
 
-    static public function notAllowed()
+    static public function notAllowed(Logger $logger)
     {
         return new static(self::NOT_ALLOWED);
     }
@@ -36,7 +36,7 @@ class ErrorHandler
         return new static(self::RUNTIME, $logger);
     }
 
-    public function __construct($type, Logger $logger=null)
+    public function __construct($type, Logger $logger)
     {
         $this->type = intval($type);
         $this->logger = $logger;
@@ -58,10 +58,13 @@ class ErrorHandler
                 $this->exceptionHandler($data);
         }
 
-        return $response
+        $response = $response
             ->withHeader('Content-Type', 'application/xml')
             ->withStatus($this->status)
             ->write($this->renderXml());
+
+        $this->logResponse($response);
+        return $response;
     }
 
     protected function notFoundHandler()
@@ -109,14 +112,20 @@ class ErrorHandler
 
     public function logException($exception)
     {
-        if ($this->logger) {
-            $this->logger->error($exception->getMessage(), [
-                'exception' => get_class($exception),
-                'code'      => $exception->getCode(),
-                'file'      => $exception->getFile(),
-                'line'      => $exception->getLine(),
-                'trace'     => $exception->getTraceAsString(),
-            ]);
+        $this->logger->error($exception->getMessage(), [
+            'exception' => get_class($exception),
+            'code'      => $exception->getCode(),
+            'file'      => $exception->getFile(),
+            'line'      => $exception->getLine(),
+            'trace'     => $exception->getTraceAsString(),
+        ]);
+    }
+
+    public function logResponse($response)
+    {
+        $this->logger->info('Status: ' . $response->getStatusCode());
+        foreach ($response->getHeaders() as $name => $values) {
+            $this->logger->debug($name . ": " . implode(", ", $values));
         }
     }
 

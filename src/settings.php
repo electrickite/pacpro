@@ -8,17 +8,19 @@ try {
   $dotenv->load();
 } catch (InvalidArgumentException $e) {}
 
+$debug = (strtolower(getenv('DEBUG')) == 'true');
+
 // Configure application
 return [
     'settings' => [
-        'displayErrorDetails' => (strtolower(getenv('DEBUG')) == 'true'),
+        'displayErrorDetails' => $debug,
         'addContentLengthHeader' => false,
         'packages_path' => __DIR__ . '/../packages/',
 
         'logger' => [
             'name' => 'pacpro',
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../log/app.log',
-            'level' => strtolower(getenv('DEBUG')) == 'true' ? Logger::DEBUG : Logger::INFO,
+            'level' => $debug ? Logger::DEBUG : Logger::INFO,
         ],
 
         'view' => [

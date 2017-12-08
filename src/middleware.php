@@ -63,9 +63,16 @@ $app->add(function ($request, $response, $next) {
 $app->add(function (Request $request, Response $response, callable $next) {
     $this->logger->info($request->getMethod() . ' ' . $request->getUri());
     foreach ($request->getHeaders() as $name => $values) {
-        $this->logger->info($name . ": " . implode(", ", $values));
+        $this->logger->debug($name . ": " . implode(", ", $values));
     }
-    $this->logger->info('Request body: ' . $request->getBody());
+    $this->logger->debug('Request body: ' . $request->getBody());
 
-    return $next($request, $response);
+    $response = $next($request, $response);
+
+    $this->logger->info('Status: ' . $response->getStatusCode());
+    foreach ($response->getHeaders() as $name => $values) {
+        $this->logger->debug($name . ": " . implode(", ", $values));
+    }
+
+    return $response;
 });
