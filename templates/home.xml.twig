@@ -17,5 +17,5 @@
       <releasedon>{{ package.transportPackageModTime }}</releasedon>
     </newest>
   {% endfor %}
-  <url>{{ base_url }}{{ path_for('package') }}</url>
+  <url>{{ base_url() }}{{ path_for('package') }}</url>
 </home>

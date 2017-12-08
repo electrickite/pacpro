@@ -27,7 +27,7 @@
   <smf_url></smf_url>
   <repository>{{ package.repo }}</repository>
   <supports>{{ package.modx_min }}</supports>
-  <location><![CDATA[{{ base_url }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
+  <location><![CDATA[{{ base_url() }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
   <signature>{{ package.signature }}</signature>
   <supports_db>{{ package.supports_db }}</supports_db>
   <minimum_supports>{{ package.modx_min }}</minimum_supports>
@@ -41,7 +41,7 @@
       <downloads></downloads>
       <lastip></lastip>
       <transport>true</transport>
-      <location><![CDATA[{{ base_url }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
+      <location><![CDATA[{{ base_url() }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
     </file>
     <package-signature>{{ package.signature }}</package-signature>
   {% endif %}

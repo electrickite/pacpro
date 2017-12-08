@@ -22,21 +22,30 @@ $app->add(function (Request $request, Response $response, callable $next) {
     return $next($request, $response);
 });
 
+
 // Authenticate users
 $app->add(function ($request, $response, $next) {
     $users_file = $this->settings['packages_path'] . 'users.yml';
+    $auth_params = [];
+
     if (file_exists($users_file)) {
         $username = $request->getQueryParam('username');
         $key = $request->getQueryParam('api_key');
         $users = Yaml::parseFile($users_file);
+
+        if ($key || $username) {
+            $auth_params = ['api_key' => $key, 'username' => $username];
+        }
 
         if (empty($username) || !isset($users[$username]) || $users[$username] != $key) {
             throw new ForbiddenException;
         }
     }
 
+    $this->view['auth'] = $auth_params;
     return $next($request, $response);
 });
+
 
 // Set global response content type
 $app->add(function ($request, $response, $next) {
@@ -48,6 +57,7 @@ $app->add(function ($request, $response, $next) {
     }
     return $response;
 });
+
 
 // Log all requests
 $app->add(function (Request $request, Response $response, callable $next) {

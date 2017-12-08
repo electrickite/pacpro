@@ -13,7 +13,6 @@ $app->get('/verify', function (Request $request, Response $response, array $args
 $app->get('/home', function (Request $request, Response $response, array $args) {
     $provider = new Provider();
     return $this->view->render($response, 'home.xml.twig', [
-        'base_url' => $request->getUri()->getBaseUrl(),
         'provider' => $provider
     ]);
 })->setName('home');
@@ -39,12 +38,9 @@ $app->get('/package', function (Request $request, Response $response, array $arg
     $repo = $request->getQueryParam('tag');
     $query = $request->getQueryParam('query');
     $signature = $request->getQueryParam('signature');
-    $base_url = $request->getUri()->getBaseUrl();
 
     if ($signature) {
         return $this->view->render($response, 'package.xml.twig', [
-            'base_url' => $base_url,
-            'auth' => Helpers::authenticationParams($request),
             'package' => Package::fromSignature($signature)
         ]);
     } elseif ($repo) {
@@ -56,8 +52,6 @@ $app->get('/package', function (Request $request, Response $response, array $arg
     }
 
     return $this->view->render($response, 'packages.xml.twig', [
-        'base_url' => $base_url,
-        'auth' => Helpers::authenticationParams($request),
         'packages' => $packages
     ]);
 })->setName('package');
@@ -69,13 +63,10 @@ $app->get('/package/update', function (Request $request, Response $response, arr
         throw new BadRequestException('Missing signature');
     }
 
-    $base_url = $request->getUri()->getBaseUrl();
     $package = Package::fromSignature($signature);
     $packages = $package->requiresUpdate() ? [$package->currentPackage()] : [];
 
     return $this->view->render($response, 'update.xml.twig', [
-        'base_url' => $base_url,
-        'auth' => Helpers::authenticationParams($request),
         'packages' => $packages
     ]);
 })->setName('update');
@@ -86,7 +77,7 @@ $app->get('/download/{signature}', function (Request $request, Response $respons
     $get_url = $request->getQueryParam('getUrl');
 
     if ($get_url) {
-        $path = $this->router->pathFor('download', ['signature' => $package->signature], Helpers::authenticationParams($request));
+        $path = $this->router->pathFor('download', ['signature' => $package->signature], $this->view['auth']);
         $url = $request->getUri()->getBaseUrl() . $path;
 
         return $response
