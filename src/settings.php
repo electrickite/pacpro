@@ -24,12 +24,5 @@ return [
         'view' => [
             'template_path' => __DIR__ . '/../templates/',
         ],
-
-        'errors' => [
-            'template' => 'error.xml.twig',
-            'not_found' => 'The requested resource was not found',
-            'not_allowed' => 'Method must be one of: ',
-            'internal' => 'Internal servr error'
-        ],
     ],
 ];

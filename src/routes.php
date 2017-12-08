@@ -9,6 +9,7 @@ $app->get('/verify', function (Request $request, Response $response, array $args
     return $this->view->render($response, 'verify.xml.twig');
 })->setName('verify');
 
+
 $app->get('/home', function (Request $request, Response $response, array $args) {
     $provider = new Provider();
     return $this->view->render($response, 'home.xml.twig', [
@@ -17,12 +18,14 @@ $app->get('/home', function (Request $request, Response $response, array $args) 
     ]);
 })->setName('home');
 
+
 $app->get('/repository', function (Request $request, Response $response, array $args) {
     $repositories = Repository::all();
     return $this->view->render($response, 'repositories.xml.twig', [
         'repositories' => $repositories
     ]);
 })->setName('repositories');
+
 
 $app->get('/repository/{id}', function (Request $request, Response $response, array $args) {
     $repository = new Repository($args['id']);
@@ -31,11 +34,20 @@ $app->get('/repository/{id}', function (Request $request, Response $response, ar
     ]);
 })->setName('repository');
 
+
 $app->get('/package', function (Request $request, Response $response, array $args) {
     $repo = $request->getQueryParam('tag');
     $query = $request->getQueryParam('query');
+    $signature = $request->getQueryParam('signature');
+    $base_url = $request->getUri()->getBaseUrl();
 
-    if ($repo) {
+    if ($signature) {
+        return $this->view->render($response, 'package.xml.twig', [
+            'base_url' => $base_url,
+            'auth' => Helpers::authenticationParams($request),
+            'package' => Package::fromSignature($signature)
+        ]);
+    } elseif ($repo) {
         $packages = Package::fromRepo($repo);
     } elseif ($query) {
         $packages = Package::search($query);
@@ -44,20 +56,24 @@ $app->get('/package', function (Request $request, Response $response, array $arg
     }
 
     return $this->view->render($response, 'packages.xml.twig', [
-        'base_url' => $request->getUri()->getBaseUrl(),
+        'base_url' => $base_url,
+        'auth' => Helpers::authenticationParams($request),
         'packages' => $packages
     ]);
 })->setName('package');
 
-$app->get('/download/{repo}/{id}', function (Request $request, Response $response, array $args) {
-    $package = new Package($args['repo'], $args['id']);
+
+$app->get('/download/{signature}', function (Request $request, Response $response, array $args) {
+    $package = Package::fromSignature($args['signature']);
     $get_url = $request->getQueryParam('getUrl');
 
     if ($get_url) {
-        $uri = $request->getUri();
+        $path = $this->router->pathFor('download', ['signature' => $package->signature], Helpers::authenticationParams($request));
+        $url = $request->getUri()->getBaseUrl() . $path;
+
         return $response
             ->withHeader('Content-Type', 'text/plain')
-            ->write($uri->getBaseUrl() . $uri->getPath());
+            ->write($url);
     } else {
         $file = $package->transportPackagePath();
 

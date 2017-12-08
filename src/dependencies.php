@@ -28,51 +28,16 @@ $container['view'] = function ($c) {
     return $view;
 };
 
-
 // Error handling
-$container['notFoundHandler'] = function ($c) {
-    return function ($request, $response) use ($c) {
-        $settings = $c->get('settings')['errors'];
-
-        return $c->get('view')->render($response, $settings['template'], [
-            'status' => 404,
-            'message' => $settings['not_found']
-        ])->withStatus(404);
-    };
+$container['notFoundHandler'] = function() {
+    return ErrorHandler::notFound();
 };
-
-$container['notAllowedHandler'] = function ($c) {
-    return function ($request, $response, $methods) use ($c) {
-        $settings = $c->get('settings')['errors'];
-
-        return $c->get('view')->render($response, $settings['template'], [
-            'status' => 405,
-            'message' => $settings['not_allowed'] . implode(', ', $methods)
-        ])->withStatus(405)->withHeader('Allow', implode(', ', $methods));
-    };
+$container['notAllowedHandler'] = function() {
+    return ErrorHandler::notAllowed();
 };
-
-// Use XML errors when in production
-if (!$container->get('settings')['displayErrorDetails']) {
-    $container['errorHandler'] = function ($c) {
-        return function ($request, $response, $exception) use ($c) {
-            $settings = $c->get('settings')['errors'];
-
-            return $c->get('view')->render($response, $settings['template'], [
-                'status' => 500,
-                'message' => $settings['internal']
-            ])->withStatus(500);
-        };
-    };
-
-    $container['phpErrorHandler'] = function ($c) {
-        return function ($request, $response, $error) use ($c) {
-            $settings = $c->get('settings')['errors'];
-
-            return $c->get('view')->render($response, $settings['template'], [
-                'status' => 500,
-                'message' => $settings['internal']
-            ])->withStatus(500);
-        };
-    };
-}
+$container['errorHandler'] = function($c) {
+    return ErrorHandler::exception($c['logger']);
+};
+$container['phpErrorHandler'] = function($c) {
+    return ErrorHandler::runtimeError($c['logger']);
+};

@@ -4,6 +4,16 @@ class Package extends ProviderBase
 {
     protected $repo;
 
+    public static function fromSignature($sig) {
+        $package_info = self::parseSignature($sig);
+        $packages = self::packagePathQuery('*/' . $package_info['id']);
+        if (empty($packages)) {
+            throw new NotFoundException('Package not found');
+        }
+
+        return new Package($packages[0]['repo'], $packages[0]['path'], $package_info['version']);
+    }
+
     public static function all() {
         return self::packageQuery('*/*');
     }
@@ -19,24 +29,46 @@ class Package extends ProviderBase
     }
 
     protected static function packageQuery($pattern) {
-        $packages = [];
-        foreach (glob(self::$base_path . '/' . $pattern . '/info.yml') as $file) {
-            $path = basename(dirname($file));
-            $repo = basename(dirname(dirname($file)));
-            $packages[] = new Package($repo, $path);
-        }
-        return $packages;
+        return array_map(function($match) {
+            return new Package($match['repo'], $match['path']);
+        }, self::packagePathQuery($pattern));
     }
 
-    public function __construct($repo, $path) {
-        $this->repo = self::$base_path . $repo;
-        $this->path = $this->repo . DIRECTORY_SEPARATOR . $path;
+    protected static function packagePathQuery($pattern) {
+        return array_map(function($file) {
+            $path = basename(dirname($file));
+            $repo = basename(dirname(dirname($file)));
+            return ['repo' => $repo, 'path' => $path];
+        }, glob(self::$base_path . '/' . $pattern . '/info.yml'));
+    }
+
+    protected static function parseSignature($sig) {
+        preg_match('/(.+)-([0-9]*\.[0-9]*\.[0-9]*-.*)/', $sig, $matches);
+
+        if (isset($matches[1])) {
+            return ['id' => $matches[1], 'version' => $matches[2]];
+        } else {
+            throw new BadRequestException('Invalid package signature');
+        }
+    }
+
+    public function __construct($repo, $path, $version=null) {
+        $this->repo = $repo;
+        $this->setPath($this->repo . DIRECTORY_SEPARATOR . $path);
         $this->setInfo();
-        $this->addPackageInfo();
+        $this->addPackageInfo($version);
+
+        if (!file_exists($this->transportPackagePath())) {
+            throw new NotFoundException('Invaid package version: ' . $this->signature);
+        }
     }
 
     public function transportPackagePath() {
-        return $this->path . DIRECTORY_SEPARATOR . $this->package_name . '.transport.zip';
+        return $this->path . DIRECTORY_SEPARATOR . $this->transportPackageFileName();
+    }
+
+    public function transportPackageFileName() {
+        return $this->signature . '.transport.zip';
     }
 
     public function transportPackageModTime() {
@@ -46,10 +78,14 @@ class Package extends ProviderBase
         }
     }
 
-    protected function addPackageInfo() {
-        $this->info['repo'] = basename($this->repo);
+    protected function addPackageInfo($version) {
+        $this->info['repo'] = $this->repo;
 
-        $this->package_name = $this->id . '-' . $this->current;
+        if ($version) {
+            $this->info['signature'] = $this->id . '-' . $version;
+        } else {
+            $this->info['signature'] = $this->id . '-' . $this->current;
+        }
 
         $version_parts = explode('-', $this->current);
         $this->info['version'] = $version_parts[0];

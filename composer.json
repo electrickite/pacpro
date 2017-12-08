@@ -16,6 +16,6 @@
         "symfony/yaml": "^4.0"
     },
     "autoload": {
-        "classmap": ["src/models/"]
+        "classmap": ["src/models/", "src/errors", "src/helpers"]
     }
 }

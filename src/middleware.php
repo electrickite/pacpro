@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Symfony\Component\Yaml\Yaml;
 
 // Permanently redirect paths with a trailing slash to their non-trailing
 // counterpart
@@ -21,13 +22,18 @@ $app->add(function (Request $request, Response $response, callable $next) {
     return $next($request, $response);
 });
 
-// Log all requests
-$app->add(function (Request $request, Response $response, callable $next) {
-    $this->logger->info($request->getMethod() . ' ' . $request->getUri());
-    foreach ($request->getHeaders() as $name => $values) {
-        $this->logger->info($name . ": " . implode(", ", $values));
+// Authenticate users
+$app->add(function ($request, $response, $next) {
+    $users_file = $this->settings['packages_path'] . 'users.yml';
+    if (file_exists($users_file)) {
+        $username = $request->getQueryParam('username');
+        $key = $request->getQueryParam('api_key');
+        $users = Yaml::parseFile($users_file);
+
+        if (empty($username) || !isset($users[$username]) || $users[$username] != $key) {
+            throw new ForbiddenException;
+        }
     }
-    $this->logger->info('Request body: ' . $request->getBody());
 
     return $next($request, $response);
 });
@@ -41,4 +47,15 @@ $app->add(function ($request, $response, $next) {
         $response = $response->withHeader('Content-Type', 'application/xml');
     }
     return $response;
+});
+
+// Log all requests
+$app->add(function (Request $request, Response $response, callable $next) {
+    $this->logger->info($request->getMethod() . ' ' . $request->getUri());
+    foreach ($request->getHeaders() as $name => $values) {
+        $this->logger->info($name . ": " . implode(", ", $values));
+    }
+    $this->logger->info('Request body: ' . $request->getBody());
+
+    return $next($request, $response);
 });

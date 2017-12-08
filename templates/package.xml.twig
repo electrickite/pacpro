@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+  <id>{{ package.signature }}</id>
+  <package>{{ package.id }}</package>
+  <display_name>{{ package.signature }}</display_name>
+  <name>{{ package.name }}</name>
+  <version>{{ package.version }}</version>
+  <version_major>{{ package.major_version }}</version_major>
+  <version_minor>{{ package.minor_version }}</version_minor>
+  <version_patch>{{ package.patch_version }}</version_patch>
+  <release>{{ package.release }}</release>
+  <vrelease>{{ package.release }}</vrelease>
+  <vrelease_index></vrelease_index>
+  <author>{{ package.author }}</author>
+  <description><![CDATA[{{ package.description }}]]></description>
+  <instructions><![CDATA[{{ package.instructions }}]]></instructions>
+  <changelog><![CDATA[{{ package.chhangelog }}]]></changelog>
+  <createdon>{{ package.transportPackageModTime }}</createdon>
+  <createdby>{{ package.author }}</createdby>
+  <editedon>{{ package.transportPackageModTime }}</editedon>
+  <releasedon>{{ package.transportPackageModTime }}</releasedon>
+  <downloads></downloads>
+  <approved>true</approved>
+  <audited>false</audited>
+  <featured>false</featured>
+  <deprecated>false</deprecated>
+  <license>{{ package.license }}</license>
+  <smf_url></smf_url>
+  <repository>{{ package.repo }}</repository>
+  <supports>{{ package.modx_min }}</supports>
+  <location><![CDATA[{{ base_url }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
+  <signature>{{ package.signature }}</signature>
+  <supports_db>{{ package.supports_db }}</supports_db>
+  <minimum_supports>{{ package.modx_min }}</minimum_supports>
+  <breaks_at>{{ package.modx_max | default('10000000') }}</breaks_at>
+  <screenshot></screenshot>
+  <file>
+    <id>{{ package.signature }}</id>
+    <version>{{ package.signature }}</version>
+    <filename>{{ package.transportPackageFileName }}</filename>
+    <downloads></downloads>
+    <lastip></lastip>
+    <transport>true</transport>
+    <location><![CDATA[{{ base_url }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
+  </file>
+  <package-signature>{{ package.signature }}</package-signature>
+  <categories></categories>
+  <tags></tags>
+</package>

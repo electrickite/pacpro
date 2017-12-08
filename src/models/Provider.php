@@ -3,8 +3,7 @@
 class Provider extends ProviderBase
 {
     public function __construct() {
-        $this->path = self::$base_path;
-        $this->setInfo();
+        parent::__construct('');
     }
 
     public function totalPackages() {

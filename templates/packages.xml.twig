@@ -2,9 +2,9 @@
 <packages total="{{ packages | length }}" page="1" of="1">
   {% for package in packages %}
     <package>
-      <id>{{ package.id }}</id>
-      <package>{{ package.package_name }}</package>
-      <display_name>{{ package.package_name }}</display_name>
+      <id>{{ package.signature }}</id>
+      <package>{{ package.id }}</package>
+      <display_name>{{ package.signature }}</display_name>
       <name>{{ package.name }}</name>
       <version>{{ package.version }}</version>
       <version_major>{{ package.major_version }}</version_major>
@@ -15,8 +15,8 @@
       <vrelease_index></vrelease_index>
       <author>{{ package.author }}</author>
       <description><![CDATA[{{ package.description }}]]></description>
-      <instructions></instructions>
-      <changelog></changelog>
+      <instructions><![CDATA[{{ package.instructions }}]]></instructions>
+      <changelog><![CDATA[{{ package.chhangelog }}]]></changelog>
       <createdon>{{ package.transportPackageModTime }}</createdon>
       <createdby>{{ package.author }}</createdby>
       <editedon>{{ package.transportPackageModTime }}</editedon>
@@ -29,12 +29,12 @@
       <license>{{ package.license }}</license>
       <smf_url></smf_url>
       <repository>{{ package.repo }}</repository>
-      <supports>{{ package.modx_max }}</supports>
-      <location>{{ base_url }}{{ path_for('download', { 'repo': package.repo, 'id': package.id }) }}</location>
-      <signature>{{ package.package_name }}</signature>
+      <supports>{{ package.modx_min }}</supports>
+      <location><![CDATA[{{ base_url }}{{ path_for('download', {'signature': package.signature}, auth) | raw }}]]></location>
+      <signature>{{ package.signature }}</signature>
       <supports_db>{{ package.supports_db }}</supports_db>
       <minimum_supports>{{ package.modx_min }}</minimum_supports>
-      <breaks_at>10000000</breaks_at>
+      <breaks_at>{{ package.modx_max | default('10000000') }}</breaks_at>
       <screenshot></screenshot>
       <categories></categories>
       <tags></tags>
