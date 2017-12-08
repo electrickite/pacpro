@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% if packages is not empty %}
+  <packages total="{{ packages | length }}">
+    {% for package in packages %}
+      {% include '_package.xml.twig' %}
+    {% endfor %}
+  </packages>
+{% else %}
+  <package total="0"/>
+{% endif %}

@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repositories total="{{ repositories | length }}" page="1" of="1">
   {% for repo in repositories %}
-    <repository>
-      <id>{{ repo.id }}</id>
-      <name>{{ repo.name }}</name>
-      <description><![CDATA[{{ repo.description }}]]></description>
-      <createdon>{{ repo.created_on }}</createdon>
-      <rank>{{ repo.rank }}</rank>
-      <packages>{{ repo.totalPackages }}</packages>
-      <tag/>
-      <templated>{{ repo.templated | number_format }}</templated>
-    </repository>
+    {% include '_repository.xml.twig' %}
   {% endfor %}
 </repositories>

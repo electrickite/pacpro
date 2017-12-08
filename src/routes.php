@@ -63,6 +63,24 @@ $app->get('/package', function (Request $request, Response $response, array $arg
 })->setName('package');
 
 
+$app->get('/package/update', function (Request $request, Response $response, array $args) {
+    $signature = $request->getQueryParam('signature');
+    if (empty($signature)) {
+        throw new BadRequestException('Missing signature');
+    }
+
+    $base_url = $request->getUri()->getBaseUrl();
+    $package = Package::fromSignature($signature);
+    $packages = $package->requiresUpdate() ? [$package->currentPackage()] : [];
+
+    return $this->view->render($response, 'update.xml.twig', [
+        'base_url' => $base_url,
+        'auth' => Helpers::authenticationParams($request),
+        'packages' => $packages
+    ]);
+})->setName('update');
+
+
 $app->get('/download/{signature}', function (Request $request, Response $response, array $args) {
     $package = Package::fromSignature($args['signature']);
     $get_url = $request->getQueryParam('getUrl');

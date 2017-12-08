@@ -12,7 +12,6 @@ class ErrorHandler
     const RUNTIME = 4;
 
     protected $type;
-    protected $code;
     protected $status;
     protected $message;
     protected $logger;
@@ -61,22 +60,20 @@ class ErrorHandler
 
         return $response
             ->withHeader('Content-Type', 'application/xml')
-            ->withStatus($this->code)
+            ->withStatus($this->status)
             ->write($this->renderXml());
     }
 
     protected function notFoundHandler()
     {
-        $this->code = 404;
-        $this->status = 'Not Found';
+        $this->status = 404;
         $this->message = 'The requested resource was not found.';
     }
 
     protected function notAllowedHandler($response, $methods)
     {
         $allowed = implode(', ', $methods);
-        $this->code = 405;
-        $this->status = 'Not Allowed';
+        $this->status = 405;
         $this->message = "Method must be one of: $allowed";
 
         return $response->withHeader('Allow', $allowed);
@@ -89,19 +86,16 @@ class ErrorHandler
             $this->notFoundHandler();
             break;
         case 'BadRequestException':
-            $this->code = 400;
-            $this->status = 'Bad Request';
+            $this->status = 400;
             $this->message = 'There was an error in the format of your request.';
             break;
         case 'ForbiddenException':
-            $this->code = 403;
-            $this->status = 'Forbidden';
+            $this->status = 403;
             $this->message = 'You are not authorized to access this resource.';
             break;
         default:
             $this->logException($exception);
-            $this->code = 500;
-            $this->status = 'Internal Server Error';
+            $this->status = 500;
             $this->message = 'The server encountered a problem responding to your request and cannot continue.';
         }
     }
@@ -109,8 +103,7 @@ class ErrorHandler
     protected function runtimeHandler($error)
     {
         $this->logException($error);
-        $this->code = 500;
-        $this->status = 'Internal Server Error';
+        $this->status = 500;
         $this->message = 'The server encountered a problem responding to your request and cannot continue.';
     }
 
@@ -130,8 +123,7 @@ class ErrorHandler
     protected function renderXml()
     {
         $xml = new SimpleXMLElement("<error></error>");
-        $xml->addChild('code', $this->code);
-        $xml->addChild('type', $this->status);
+        $xml->addChild('status', $this->status);
         $xml->addChild('message', $this->message);
         return $xml->asXML();
     }

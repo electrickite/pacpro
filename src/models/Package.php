@@ -78,14 +78,21 @@ class Package extends ProviderBase
         }
     }
 
+    public function currentSignature() {
+        return $this->buildSignature();
+    }
+
+    public function requiresUpdate() {
+        return $this->signature != $this->currentSignature();
+    }
+
+    public function currentPackage() {
+        return new self($this->repo, $this->id);
+    }
+
     protected function addPackageInfo($version) {
         $this->info['repo'] = $this->repo;
-
-        if ($version) {
-            $this->info['signature'] = $this->id . '-' . $version;
-        } else {
-            $this->info['signature'] = $this->id . '-' . $this->current;
-        }
+        $this->info['signature'] = $this->buildSignature($version);
 
         $version_parts = explode('-', $this->current);
         $this->info['version'] = $version_parts[0];
@@ -95,5 +102,9 @@ class Package extends ProviderBase
         $this->info['major_version'] = $version_numbers[0];
         $this->info['minor_version'] = $version_numbers[1];
         $this->info['patch_version'] = $version_numbers[2];
+    }
+
+    protected function buildSignature($version=null) {
+        return $this->id . '-' . ($version ?: $this->current);
     }
 }
