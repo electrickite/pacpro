@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Corey Hinshaw",
-            "email": "hinshaw.25@osu.edu"
+            "email": "coreyhinshaw@gmail.com"
         }
     ],
     "require": {
@@ -15,7 +15,15 @@
         "vlucas/phpdotenv": "^2.4",
         "symfony/yaml": "^4.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
     "autoload": {
-        "classmap": ["src/models/", "src/errors", "src/helpers"]
+        "classmap": ["src/models/", "src/errors"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }

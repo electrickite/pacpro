@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<home>
+  <packages>1</packages>
+  <downloads></downloads>
+    <topdownloaded>
+    <id>sample</id>
+    <name>Sample package</name>
+    <downloads></downloads>
+  </topdownloaded>
+      <newest>
+    <id>sample</id>
+    <name>Sample package 0.0.2-pl</name>
+    <package_name>Sample package</package_name>
+    <releasedon>2017-12-08T19:35:59+00:00</releasedon>
+  </newest>
+  <url>http://localhost/package</url>
+</home>

@@ -1,0 +1,9 @@
+id:           sample
+name:         Sample package
+description:  Just a sample package to test
+current:      0.0.2-pl
+author:       John Doe
+license:      custom
+modx_max:
+modx_min:     2.2
+supports_db:  mysql,sqlsrv
