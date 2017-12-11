@@ -6,6 +6,7 @@ use App\Model\Package;
 use App\Error\BadRequestException;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Http\Stream;
 
 // Routes
 
@@ -89,16 +90,16 @@ $app->get('/download/{signature}', function (Request $request, Response $respons
             ->write($url);
     } else {
         $file = $package->transportPackagePath();
+        $fh = fopen($file, 'rb');
+        $stream = new Stream($fh);
 
-        $response = $response
+        return $response
             ->withHeader('Content-Type', 'application/octet-stream')
             ->withHeader('Content-Disposition', 'attachment;filename="'.basename($file).'"')
             ->withHeader('Expires', '0')
             ->withHeader('Cache-Control', 'must-revalidate')
             ->withHeader('Pragma', 'public')
-            ->withHeader('Content-Length', filesize($file));
-
-        readfile($file);
-        return $response;
+            ->withHeader('Content-Length', filesize($file))
+            ->withBody($stream);
     }
 })->setName('download');
