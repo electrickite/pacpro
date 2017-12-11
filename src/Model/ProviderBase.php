@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Error\BadRequestException;
+use App\Error\NotFoundException;
 use Symfony\Component\Yaml\Yaml;
 
 abstract class ProviderBase

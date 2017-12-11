@@ -87,16 +87,16 @@ class ErrorHandler
     protected function exceptionHandler($exception)
     {
         switch (get_class($exception)) {
-        case 'NotFoundException':
+        case 'App\Error\NotFoundException':
             $this->logger->info($exception->getMessage());
             $this->notFoundHandler();
             break;
-        case 'BadRequestException':
+        case 'App\Error\BadRequestException':
             $this->logger->info($exception->getMessage());
             $this->status = 400;
             $this->message = 'There was an error in the format of your request.';
             break;
-        case 'ForbiddenException':
+        case 'App\Error\ForbiddenException':
             $this->logger->info($exception->getMessage());
             $this->status = 403;
             $this->message = 'You are not authorized to access this resource.';

@@ -2,6 +2,9 @@
 
 namespace App\Model;
 
+use App\Error\BadRequestException;
+use App\Error\NotFoundException;
+
 class Package extends ProviderBase
 {
     protected $repo;
