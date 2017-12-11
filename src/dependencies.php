@@ -1,5 +1,8 @@
 <?php
 
+use App\Model\ProviderBase;
+use App\Error\ErrorHandler;
+
 // DIC configuration
 $container = $app->getContainer();
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 use Symfony\Component\Yaml\Yaml;
 
 abstract class ProviderBase

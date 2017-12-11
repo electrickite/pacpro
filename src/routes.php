@@ -1,5 +1,9 @@
 <?php
 
+use App\Model\Provider;
+use App\Model\Repository;
+use App\Model\Package;
+use App\Error\BadRequestException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 class Provider extends ProviderBase
 {
     public function __construct()

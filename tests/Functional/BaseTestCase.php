@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * Patch core functions in App namespace to support VFS mock filesystem
+ */
+namespace App\Model;
+
+function realpath($path)
+{
+    return rtrim($path, '/');
+}
+
+function glob($pattern, $flags = 0)
+{
+    return \Webmozart\Glob\Glob::glob($pattern, $flags);
+}
+
+
 namespace Tests\Functional;
 
 use Slim\App;
@@ -7,6 +23,9 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Environment;
 use PHPUnit\Framework\TestCase;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
 
 class BaseTestCase extends TestCase
 {
@@ -16,6 +35,24 @@ class BaseTestCase extends TestCase
      * @var bool
      */
     protected $withMiddleware = true;
+
+    protected $usePackageVfs = true;
+
+    public function setUp()
+    {
+        if ($this->usePackageVfs) {
+            $this->createVfs();
+        }
+    }
+
+    public function createVfs()
+    {
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('packages'));
+        vfsStream::copyFromFileSystem(__DIR__ . '/../fixtures/packages');
+        touch(vfsStream::url('packages') . '/main/sample/sample-0.0.1-pl.transport.zip', 1512739800);
+        touch(vfsStream::url('packages') . '/main/sample/sample-0.0.2-pl.transport.zip', 1512960151);
+    }
 
     /**
      * Process the application given a request method and URI

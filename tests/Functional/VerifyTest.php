@@ -4,6 +4,8 @@ namespace Tests\Functional;
 
 class VerifyTest extends BaseTestCase
 {
+    protected $usePackageVfs = false;
+
     public function testGetVerify()
     {
         $response = $this->request('GET', '/verify');

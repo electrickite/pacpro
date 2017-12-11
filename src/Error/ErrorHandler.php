@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Error;
+
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Monolog\Logger;
@@ -134,7 +136,7 @@ class ErrorHandler
 
     protected function renderXml()
     {
-        $xml = new SimpleXMLElement("<error></error>");
+        $xml = new \SimpleXMLElement("<error></error>");
         $xml->addChild('status', $this->status);
         $xml->addChild('message', $this->message);
         return $xml->asXML();

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 class Package extends ProviderBase
 {
     protected $repo;

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 class Repository extends ProviderBase
 {
     public static function all()

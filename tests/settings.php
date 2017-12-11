@@ -1,13 +1,14 @@
 <?php
 
 use \Monolog\Logger;
+use org\bovigo\vfs\vfsStream;
 
 // Configure application
 return [
     'settings' => [
         'displayErrorDetails' => false,
         'addContentLengthHeader' => false,
-        'packages_path' => __DIR__ . '/fixtures/packages/',
+        'packages_path' => vfsStream::url('packages'),
 
         'logger' => [
             'name' => 'pacpro',
