@@ -9,7 +9,7 @@ class HomeTest extends BaseTestCase
         $response = $this->request('GET', '/home');
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('application/xml', $response->getHeaderLine('Content-Type'));
+        $this->assertXmlContentType($response);
         $this->assertXmlStringEqualsXmlString($this->xmlFixture('home.xml'), (string)$response->getBody());
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+  <id>sample-0.0.1-pl</id>
+  <package>sample</package>
+  <display_name>sample-0.0.1-pl</display_name>
+  <name>Sample package</name>
+  <version>0.0.2</version>
+  <version_major>0</version_major>
+  <version_minor>0</version_minor>
+  <version_patch>2</version_patch>
+  <release>pl</release>
+  <vrelease>pl</vrelease>
+  <vrelease_index></vrelease_index>
+  <author>John Doe</author>
+  <description><![CDATA[Just a sample package to test]]></description>
+  <instructions><![CDATA[]]></instructions>
+  <changelog><![CDATA[]]></changelog>
+  <createdon>2017-12-08t13:30:00+00:00</createdon>
+  <createdby>John Doe</createdby>
+  <editedon>2017-12-08t13:30:00+00:00</editedon>
+  <releasedon>2017-12-08t13:30:00+00:00</releasedon>
+  <downloads></downloads>
+  <approved>true</approved>
+  <audited>false</audited>
+  <featured>false</featured>
+  <deprecated>false</deprecated>
+  <license>custom</license>
+  <smf_url></smf_url>
+  <repository>main</repository>
+  <supports>2.2</supports>
+  <location><![CDATA[http://localhost/download/sample-0.0.1-pl]]></location>
+  <signature>sample-0.0.1-pl</signature>
+  <supports_db>mysql,sqlsrv</supports_db>
+  <minimum_supports>2.2</minimum_supports>
+  <breaks_at>10000000</breaks_at>
+  <screenshot></screenshot>
+  <file>
+    <id>sample-0.0.1-pl</id>
+    <version>sample-0.0.1-pl</version>
+    <filename>sample-0.0.1-pl.transport.zip</filename>
+    <downloads></downloads>
+    <lastip></lastip>
+    <transport>true</transport>
+    <location><![CDATA[http://localhost/download/sample-0.0.1-pl]]></location>
+  </file>
+  <package-signature>sample-0.0.1-pl</package-signature>
+  <categories></categories>
+  <tags></tags>
+</package>

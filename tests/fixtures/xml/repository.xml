@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository>
+  <id>main</id>
+  <name>Main</name>
+  <description><![CDATA[The main package repository]]></description>
+  <createdon>2017-12-05T14:37:16+0000</createdon>
+  <rank>0</rank>
+  <packages>2</packages>
+  <tag>
+    <id>main</id>
+    <name>All</name>
+    <packages>2</packages>
+    <templated>0</templated>
+  </tag>
+  <templated>0</templated>
+</repository>

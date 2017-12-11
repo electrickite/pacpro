@@ -11,7 +11,7 @@ class VerifyTest extends BaseTestCase
         $response = $this->request('GET', '/verify');
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('application/xml', $response->getHeaderLine('Content-Type'));
+        $this->assertXmlContentType($response);
         $this->assertXmlStringEqualsXmlString($this->xmlFixture('verify.xml'), (string)$response->getBody());
     }
 }

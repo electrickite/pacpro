@@ -1,0 +1,9 @@
+id:           foo
+name:         Foo Bar
+description:  At least it is not a baz
+current:      2.0.4-pl
+author:       Jane Doe
+license:      GPLv2
+modx_max:
+modx_min:     2.2
+supports_db:  mysql,sqlsrv

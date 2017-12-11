@@ -1,0 +1,11 @@
+id:           testing
+name:         Testing 123
+description:  A test package for testing
+instructions: Install via package manager.
+chnagelog:    1.2.3 - inital release
+current:      1.2.3-pl
+author:       Tester Testington
+license:      MIT
+modx_max:     2.5
+modx_min:     2.2
+supports_db:  mysql

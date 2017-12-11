@@ -42,16 +42,13 @@ class BaseTestCase extends TestCase
     {
         if ($this->usePackageVfs) {
             $this->createVfs();
+            $this->populateVfs();
         }
     }
 
-    public function createVfs()
+    public function packagesPath()
     {
-        vfsStreamWrapper::register();
-        vfsStreamWrapper::setRoot(new vfsStreamDirectory('packages'));
-        vfsStream::copyFromFileSystem(__DIR__ . '/../fixtures/packages');
-        touch(vfsStream::url('packages') . '/main/sample/sample-0.0.1-pl.transport.zip', 1512739800);
-        touch(vfsStream::url('packages') . '/main/sample/sample-0.0.2-pl.transport.zip', 1512960151);
+        return $this->usePackageVfs ? vfsStream::url('packages') : __DIR__ . '/../fxtures/packages';
     }
 
     /**
@@ -108,13 +105,35 @@ class BaseTestCase extends TestCase
         return $response;
     }
 
-    public function parseXml($response)
+    public function assertXmlContentType($response)
+    {
+        $this->assertEquals('application/xml', $response->getHeaderLine('Content-Type'));
+    }
+
+    protected function parseXml($response)
     {
         return simplexml_load_string((string)$response->getBody());
     }
 
-    public function xmlFixture($fixture)
+    protected function xmlFixture($fixture)
     {
         return file_get_contents(__DIR__ . '/../fixtures/xml/' . $fixture);
+    }
+
+    protected function createVfs()
+    {
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('packages'));
+    }
+
+    protected function populateVfs()
+    {
+        vfsStream::copyFromFileSystem(__DIR__ . '/../fixtures/packages');
+        $packages = vfsStream::url('packages');
+
+        touch($packages . '/main/sample/sample-0.0.1-pl.transport.zip', 1512739800);
+        touch($packages . '/main/sample/sample-0.0.2-pl.transport.zip', 1512960151);
+        touch($packages . '/main/testing/testing-1.2.3-pl.transport.zip', 1512739801);
+        touch($packages . '/other/foo/foo-2.0.4-pl.transport.zip', 1512739802);
     }
 }

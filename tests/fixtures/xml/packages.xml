@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<packages total="3" page="1" of="1">
+  <package>
+    <id>sample-0.0.2-pl</id>
+    <package>sample</package>
+    <display_name>sample-0.0.2-pl</display_name>
+    <name>Sample package</name>
+    <version>0.0.2</version>
+    <version_major>0</version_major>
+    <version_minor>0</version_minor>
+    <version_patch>2</version_patch>
+    <release>pl</release>
+    <vrelease>pl</vrelease>
+    <vrelease_index></vrelease_index>
+    <author>John Doe</author>
+    <description><![CDATA[Just a sample package to test]]></description>
+    <instructions><![CDATA[]]></instructions>
+    <changelog><![CDATA[]]></changelog>
+    <createdon>2017-12-11t02:42:31+00:00</createdon>
+    <createdby>John Doe</createdby>
+    <editedon>2017-12-11t02:42:31+00:00</editedon>
+    <releasedon>2017-12-11t02:42:31+00:00</releasedon>
+    <downloads></downloads>
+    <approved>true</approved>
+    <audited>false</audited>
+    <featured>false</featured>
+    <deprecated>false</deprecated>
+    <license>custom</license>
+    <smf_url></smf_url>
+    <repository>main</repository>
+    <supports>2.2</supports>
+    <location><![CDATA[http://localhost/download/sample-0.0.2-pl]]></location>
+    <signature>sample-0.0.2-pl</signature>
+    <supports_db>mysql,sqlsrv</supports_db>
+    <minimum_supports>2.2</minimum_supports>
+    <breaks_at>10000000</breaks_at>
+    <screenshot></screenshot>
+    <categories></categories>
+    <tags></tags>
+  </package>
+  <package>
+    <id>testing-1.2.3-pl</id>
+    <package>testing</package>
+    <display_name>testing-1.2.3-pl</display_name>
+    <name>Testing 123</name>
+    <version>1.2.3</version>
+    <version_major>1</version_major>
+    <version_minor>2</version_minor>
+    <version_patch>3</version_patch>
+    <release>pl</release>
+    <vrelease>pl</vrelease>
+    <vrelease_index></vrelease_index>
+    <author>Tester Testington</author>
+    <description><![CDATA[A test package for testing]]></description>
+    <instructions><![CDATA[Install via package manager.]]></instructions>
+    <changelog><![CDATA[]]></changelog>
+    <createdon>2017-12-08t13:30:01+00:00</createdon>
+    <createdby>Tester Testington</createdby>
+    <editedon>2017-12-08t13:30:01+00:00</editedon>
+    <releasedon>2017-12-08t13:30:01+00:00</releasedon>
+    <downloads></downloads>
+    <approved>true</approved>
+    <audited>false</audited>
+    <featured>false</featured>
+    <deprecated>false</deprecated>
+    <license>MIT</license>
+    <smf_url></smf_url>
+    <repository>main</repository>
+    <supports>2.2</supports>
+    <location><![CDATA[http://localhost/download/testing-1.2.3-pl]]></location>
+    <signature>testing-1.2.3-pl</signature>
+    <supports_db>mysql</supports_db>
+    <minimum_supports>2.2</minimum_supports>
+    <breaks_at>2.5</breaks_at>
+    <screenshot></screenshot>
+    <categories></categories>
+    <tags></tags>
+  </package>
+  <package>
+    <id>foo-2.0.4-pl</id>
+    <package>foo</package>
+    <display_name>foo-2.0.4-pl</display_name>
+    <name>Foo Bar</name>
+    <version>2.0.4</version>
+    <version_major>2</version_major>
+    <version_minor>0</version_minor>
+    <version_patch>4</version_patch>
+    <release>pl</release>
+    <vrelease>pl</vrelease>
+    <vrelease_index></vrelease_index>
+    <author>Jane Doe</author>
+    <description><![CDATA[At least it is not a baz]]></description>
+    <instructions><![CDATA[]]></instructions>
+    <changelog><![CDATA[]]></changelog>
+    <createdon>2017-12-08t13:30:02+00:00</createdon>
+    <createdby>Jane Doe</createdby>
+    <editedon>2017-12-08t13:30:02+00:00</editedon>
+    <releasedon>2017-12-08t13:30:02+00:00</releasedon>
+    <downloads></downloads>
+    <approved>true</approved>
+    <audited>false</audited>
+    <featured>false</featured>
+    <deprecated>false</deprecated>
+    <license>GPLv2</license>
+    <smf_url></smf_url>
+    <repository>other</repository>
+    <supports>2.2</supports>
+    <location><![CDATA[http://localhost/download/foo-2.0.4-pl]]></location>
+    <signature>foo-2.0.4-pl</signature>
+    <supports_db>mysql,sqlsrv</supports_db>
+    <minimum_supports>2.2</minimum_supports>
+    <breaks_at>10000000</breaks_at>
+    <screenshot></screenshot>
+    <categories></categories>
+    <tags></tags>
+  </package>
+</packages>
