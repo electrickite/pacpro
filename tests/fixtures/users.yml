@@ -1,2 +1,5 @@
-myuser:  mypassword
-user2:   password2
+hashed_keys: false
+
+users:
+  myuser:  mypassword
+  user2:   password2

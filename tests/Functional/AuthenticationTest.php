@@ -50,4 +50,23 @@ class AuthenticationTest extends BaseTestCase
         $this->assertXmlContentType($response);
         $this->assertequals('403', (string)$xml->status);
     }
+
+    public function testAuthenticationWithHashedKeys()
+    {
+        $this->useHashedKeys();
+        $response = $this->request('GET', '/verify?username=myuser&api_key=mypassword');
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function testAuthenticationWithHashedKeysAndInvalidKey()
+    {
+        $this->useHashedKeys();
+        $response = $this->request('GET', '/verify?username=myuser&api_key=notright');
+        $this->assertEquals(403, $response->getStatusCode());
+    }
+
+    protected function useHashedKeys() {
+        unlink($this->packagesPath() . '/users.yml');
+        copy(__DIR__ . '/../fixtures/users_hashed.yml', $this->packagesPath() . '/users.yml');
+    }
 }

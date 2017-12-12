@@ -1,0 +1,5 @@
+hashed_keys: true
+
+users:
+  myuser:  "$2y$10$xeKo7A4ighvIhGIDA4wUIu6AQlwxriARAzHGU/g8WS9ZKPjntdqLy"
+  user2:   "$2y$10$y0ZmaCjK/ODAEEu4RLm.4.xRhvI5X6eijDtUpjKBAudJyoTA79VSu"

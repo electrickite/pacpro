@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+if (!isset($argv[1])) {
+  echo "No key supplied!\n";
+  exit(1);
+}
+
+echo password_hash($argv[1], PASSWORD_DEFAULT);
+echo "\n";

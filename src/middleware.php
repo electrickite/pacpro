@@ -30,16 +30,30 @@ $app->add(function ($request, $response, $next) {
     $auth_params = [];
 
     if (file_exists($users_file)) {
-        $username = $request->getQueryParam('username');
-        $key = $request->getQueryParam('api_key');
-        $users = Yaml::parseFile($users_file);
-
-        if ($key || $username) {
-            $auth_params = ['api_key' => $key, 'username' => $username];
+        $auth = Yaml::parseFile($users_file);
+        if (!isset($auth['users'])) {
+            throw new RuntimeException('Missing "users" key in users.yml');
         }
 
-        if (empty($username) || !isset($users[$username]) || $users[$username] != $key) {
-            throw new ForbiddenException;
+        $hashed_keys = isset($auth['hashed_keys']) ? $auth['hashed_keys'] : false;
+        $username = $request->getQueryParam('username');
+        $supplied_key = $request->getQueryParam('api_key');
+        $auth_params = ['api_key' => $supplied_key, 'username' => $username];
+
+        if (empty($username) || empty($supplied_key)) {
+            throw new ForbiddenException('Must supply both username and api_key parameters');
+        } elseif (!isset($auth['users'][$username])) {
+            throw new ForbiddenException('Username not found');
+        }
+
+        if ($hashed_keys) {
+            $authenticated = password_verify($supplied_key, $auth['users'][$username]);
+        } else {
+            $authenticated = ($supplied_key === $auth['users'][$username]);
+        }
+
+        if (!$authenticated) {
+            throw new ForbiddenException('Incorrect key for username');
         }
     }
 
