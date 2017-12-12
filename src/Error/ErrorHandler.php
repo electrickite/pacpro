@@ -20,12 +20,12 @@ class ErrorHandler
 
     static public function notFound(Logger $logger)
     {
-        return new static(self::NOT_FOUND);
+        return new static(self::NOT_FOUND, $logger);
     }
 
     static public function notAllowed(Logger $logger)
     {
-        return new static(self::NOT_ALLOWED);
+        return new static(self::NOT_ALLOWED, $logger);
     }
 
     static public function exception(Logger $logger)

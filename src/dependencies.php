@@ -31,10 +31,10 @@ $container['view'] = function ($c) {
 };
 
 // Error handling
-$container['notFoundHandler'] = function() {
+$container['notFoundHandler'] = function($c) {
     return ErrorHandler::notFound($c['logger']);
 };
-$container['notAllowedHandler'] = function() {
+$container['notAllowedHandler'] = function($c) {
     return ErrorHandler::notAllowed($c['logger']);
 };
 $container['errorHandler'] = function($c) {

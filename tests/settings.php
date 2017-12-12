@@ -8,7 +8,7 @@ return [
     'settings' => [
         'displayErrorDetails' => false,
         'addContentLengthHeader' => false,
-        'packages_path' => vfsStream::url('packages'),
+        'packages_path' => vfsStream::url('packages') . '/',
 
         'logger' => [
             'name' => 'pacpro',

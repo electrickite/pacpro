@@ -15,7 +15,7 @@ return [
     'settings' => [
         'displayErrorDetails' => $debug,
         'addContentLengthHeader' => false,
-        'packages_path' => __DIR__ . '/../packages/',
+        'packages_path' => getenv('PACKAGES_PATH') ?: __DIR__ . '/../packages/',
 
         'logger' => [
             'name' => 'pacpro',
