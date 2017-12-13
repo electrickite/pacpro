@@ -2,7 +2,7 @@ id:           testing
 name:         Testing 123
 description:  A test package for testing
 instructions: Install via package manager.
-chnagelog:    1.2.3 - inital release
+changelog:    1.2.3 - inital release
 current:      1.2.3-pl
 author:       Tester Testington
 license:      MIT

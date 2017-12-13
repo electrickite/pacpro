@@ -13,7 +13,7 @@ class ExceptionsTest extends BaseTestCase
 
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertXmlContentType($response);
-        $this->assertequals('404', (string)$xml->status);
+        $this->assertEquals('404', (string)$xml->status);
     }
 
     public function testTrailingSlash()
@@ -31,6 +31,18 @@ class ExceptionsTest extends BaseTestCase
 
         $this->assertEquals(405, $response->getStatusCode());
         $this->assertXmlContentType($response);
-        $this->assertequals('405', (string)$xml->status);
+        $this->assertEquals('405', (string)$xml->status);
+    }
+
+    public function testErrorResponse()
+    {
+        $response = $this->request('GET', '/nonesuch');
+        $xml = $this->parseXml($response);
+
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertXmlContentType($response);
+        $this->assertEquals('error', $xml->getName());
+        $this->assertEquals('404', (string)$xml->status);
+        $this->assertEquals('The requested resource was not found.', (string)$xml->message);
     }
 }
