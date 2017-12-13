@@ -90,7 +90,7 @@ class Package extends ProviderBase
     {
         $file = $this->transportPackagePath();
         if (file_exists($file)) {
-            return date('c', filemtime($file));
+            return str_replace('t', 'T', date('c', filemtime($file)));
         }
     }
 

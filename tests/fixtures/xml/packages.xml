@@ -16,10 +16,10 @@
     <description><![CDATA[Just a sample package to test]]></description>
     <instructions><![CDATA[]]></instructions>
     <changelog><![CDATA[]]></changelog>
-    <createdon>2017-12-11t02:42:31+00:00</createdon>
+    <createdon>2017-12-11T02:42:31+00:00</createdon>
     <createdby>John Doe</createdby>
-    <editedon>2017-12-11t02:42:31+00:00</editedon>
-    <releasedon>2017-12-11t02:42:31+00:00</releasedon>
+    <editedon>2017-12-11T02:42:31+00:00</editedon>
+    <releasedon>2017-12-11T02:42:31+00:00</releasedon>
     <downloads></downloads>
     <approved>true</approved>
     <audited>false</audited>
@@ -54,10 +54,10 @@
     <description><![CDATA[A test package for testing]]></description>
     <instructions><![CDATA[Install via package manager.]]></instructions>
     <changelog><![CDATA[]]></changelog>
-    <createdon>2017-12-08t13:30:01+00:00</createdon>
+    <createdon>2017-12-08T13:30:01+00:00</createdon>
     <createdby>Tester Testington</createdby>
-    <editedon>2017-12-08t13:30:01+00:00</editedon>
-    <releasedon>2017-12-08t13:30:01+00:00</releasedon>
+    <editedon>2017-12-08T13:30:01+00:00</editedon>
+    <releasedon>2017-12-08T13:30:01+00:00</releasedon>
     <downloads></downloads>
     <approved>true</approved>
     <audited>false</audited>
@@ -92,10 +92,10 @@
     <description><![CDATA[At least it is not a baz]]></description>
     <instructions><![CDATA[]]></instructions>
     <changelog><![CDATA[]]></changelog>
-    <createdon>2017-12-08t13:30:02+00:00</createdon>
+    <createdon>2017-12-08T13:30:02+00:00</createdon>
     <createdby>Jane Doe</createdby>
-    <editedon>2017-12-08t13:30:02+00:00</editedon>
-    <releasedon>2017-12-08t13:30:02+00:00</releasedon>
+    <editedon>2017-12-08T13:30:02+00:00</editedon>
+    <releasedon>2017-12-08T13:30:02+00:00</releasedon>
     <downloads></downloads>
     <approved>true</approved>
     <audited>false</audited>

@@ -171,7 +171,7 @@ is:
       user2:   password2
 
 If `hashed_keys` is set to `true`, API keys can be stored in a hashed format.
-Use the inclided password hashing utility to generate API key hashes:
+Use the included password hashing utility to generate API key hashes:
 
     $ bin/hash_key mypassword
     $2y$10$Ogui0BV5HRnWj1pD6G83ZOh0V.yXk8E1SNtiL4Wn6.Hv96ZO.YGuq

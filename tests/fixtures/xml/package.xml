@@ -15,10 +15,10 @@
   <description><![CDATA[Just a sample package to test]]></description>
   <instructions><![CDATA[]]></instructions>
   <changelog><![CDATA[]]></changelog>
-  <createdon>2017-12-08t13:30:00+00:00</createdon>
+  <createdon>2017-12-08T13:30:00+00:00</createdon>
   <createdby>John Doe</createdby>
-  <editedon>2017-12-08t13:30:00+00:00</editedon>
-  <releasedon>2017-12-08t13:30:00+00:00</releasedon>
+  <editedon>2017-12-08T13:30:00+00:00</editedon>
+  <releasedon>2017-12-08T13:30:00+00:00</releasedon>
   <downloads></downloads>
   <approved>true</approved>
   <audited>false</audited>

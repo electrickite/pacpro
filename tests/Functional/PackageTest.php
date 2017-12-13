@@ -35,7 +35,7 @@ class PackageTest extends BaseTestCase
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertXmlContentType($response);
-        $this->assertCount(2, $xml->package);
+        $this->assertEquals(2, count($xml->package));
     }
 
     public function testGetPackagesByNonexistantRepo()
@@ -51,7 +51,7 @@ class PackageTest extends BaseTestCase
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertXmlContentType($response);
-        $this->assertCount(1, $xml->package);
+        $this->assertEquals(1, count($xml->package));
         $this->assertEquals('foo', $xml->package->package);
     }
 
@@ -61,7 +61,7 @@ class PackageTest extends BaseTestCase
         $xml = $this->parseXml($response);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertCount(2, $xml->package);
+        $this->assertEquals(2, count($xml->package));
     }
 
     public function testPackageSearchNoMatch()
@@ -102,7 +102,7 @@ class PackageTest extends BaseTestCase
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertXmlContentType($response);
-        $this->assertCount(1, $xml->package);
+        $this->assertEquals(1, count($xml->package));
         $this->assertTrue(empty($xml->package));
     }
 }
