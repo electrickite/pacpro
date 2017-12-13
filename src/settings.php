@@ -16,6 +16,7 @@ return [
         'displayErrorDetails' => $debug,
         'addContentLengthHeader' => false,
         'packages_path' => getenv('PACKAGES_PATH') ?: __DIR__ . '/../packages/',
+        'timezone' => getenv('TIMEZONE'),
 
         'logger' => [
             'name' => 'pacpro',

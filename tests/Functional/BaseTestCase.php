@@ -36,7 +36,7 @@ class BaseTestCase extends TestCase
      * @param array|object|null $requestData the request data
      * @return \Slim\Http\Response
      */
-    public function request($requestMethod, $requestUri, $requestData = null)
+    public function request($requestMethod, $requestUri, $settings = null, $requestData = null)
     {
         // Create a mock environment for testing with
         $environment = Environment::mock(
@@ -58,7 +58,7 @@ class BaseTestCase extends TestCase
         $response = new Response();
 
         // Create application configuration
-        $settings = require __DIR__ . '/../settings.php';
+        $settings = $settings ?: $this->getSettings();
         $settings['request'] = $request;
 
         // Instantiate the application
@@ -80,6 +80,11 @@ class BaseTestCase extends TestCase
 
         // Return the response
         return $response;
+    }
+
+    protected function getSettings()
+    {
+        return require __DIR__ . '/../settings.php';
     }
 
     public function assertXmlContentType($response)

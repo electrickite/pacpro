@@ -6,6 +6,11 @@ use App\Error\ErrorHandler;
 // DIC configuration
 $container = $app->getContainer();
 
+// Set timezone if needed
+if ($container->get('settings')['timezone']) {
+    date_default_timezone_set($container->get('settings')['timezone']);
+}
+
 // Configure classes
 ProviderBase::setBasePath($container->get('settings')['packages_path']);
 

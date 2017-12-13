@@ -9,6 +9,7 @@ return [
         'displayErrorDetails' => false,
         'addContentLengthHeader' => false,
         'packages_path' => vfsStream::url('packages') . '/',
+        'timezone' => 'UTC',
 
         'logger' => [
             'name' => 'pacpro',
