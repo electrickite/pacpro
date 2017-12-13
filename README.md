@@ -6,13 +6,16 @@ provide a minimal web front-end in front of a directory of transport packages
 and files containing package metadata.
 
 This project is an incomplete implementaton of a package provider and is missing
-a number of features. However, it should enable a MODX site to search for and
-download transport packages.
+a number of features supported by the official modx.com provider (notably
+download counts and pagination). However, it should enable a MODX site to search
+for and download transport packages.
 
 ## Requirements
 
   * [PHP](http://php.net) >= 5.6
   * [Composer](https://getcomposer.org)
+
+PacPro has been tested on Unix-like operating systems.
 
 ## Installation
 
@@ -35,13 +38,16 @@ To run locally with the built-in PHP web server:
 
 And then access the application at ex: [http://localhost:8000/verify](http://localhost:8000/verify)
 
-### Actions
+### Endpoints
+
+The application supports a number of endpoints and parameters used by the MODX
+package installer. 
 
   * `/verify` - used by MODX to test if a URL is a package provider
-  * `/home` - Shows most popular and most recent packages across repositories
-  * `/repository` - List of repositories
+  * `/home` - Shows most popular and most recent packages across all repositories
+  * `/repository` - Index of all repositories
   * `/repository/main` - Show repository `main`
-  * `/package` - List all packages
+  * `/package` - Index of all packages
   * `/package?tag=main` - List all packages in the `main` repository
   * `/package?query=foo` - Search package names for `foo`
   * `/package?signature=sample-1.2.3-pl` - Find version `1.2.3-pl` of the`sample` package
@@ -51,8 +57,8 @@ And then access the application at ex: [http://localhost:8000/verify](http://loc
 
 ### Production
 
-When running in production, the development and testing dependencies can be
-excluded with:
+When running in production, development and testing dependencies can be excluded
+with:
 
     $ composer install --no-dev
 
@@ -92,22 +98,23 @@ An example package hierarchy can be found at `tests/fixtures/packages`.
 
 ### Root
 
-The root directory contains a YAML metadata file called `info.yml` describing
-popular and recent packages, and at least one subdirectory representing a
-package repository.
+The root directory contains a [YAML](http://yaml.org) metadata file named
+`info.yml` describing popular and recent packages, and at least one subdirectory
+representing a package repository.
 
 Example root `info.yml`:
 
     # An array of popular packages in <repo>/<package> format
     popular:
       - main/sample
+      - other/foo
     # An array of the most recent packages in <repo>/<package> format
     newest:
       - main/sample
 
 ### Repository
 
-Each repository directory contains a YAML metadata file called `info.yml` that
+Each repository directory contains a YAML metadata file named `info.yml` that
 describes the repository and a subdirectory for each package contained in the
 repository. Note that the `id` field in the metadata file must match the
 directory name.
@@ -123,7 +130,7 @@ Example repository `info.yml`:
 
 ### Package
 
-Each package directory contains a YAML metadata file called `info.yml` and
+Each package directory contains a YAML metadata file named `info.yml` and
 transport package files for each version of the package. Note that the `id`
 field in the metadata file must match the package directory name. In addition,
 each package ID/directory must by unique across packages from _all_
@@ -147,29 +154,30 @@ Example repository `info.yml`:
 
 Package directories must have one or more transport files, one for each version
 of the package. Transport file names must use the following format:
-`<package_id>-<version>-<release>-transport.zip`
+`<package_id>-<version>-<release>.transport.zip`
 
 PacPro does not create transport files. See the [MODX documentation](https://docs.modx.com/revolution/2.x/case-studies-and-tutorials/developing-an-extra-in-modx-revolution)
 for more information on creating transport packages.
 
 ## Authentication
 
-The package provider can be restricted to authorized users with a `users.yml`
-file placed in the root of the package hierarchy. The format of this file is:
+The package provider can be restricted to authorized users by adding a
+`users.yml` file to the root of the package hierarchy. The format of this file
+is:
 
     hashed_keys: false     # API key hashing control
     users:
       myuser:  mypassword  # username: api_key
       user2:   password2
 
-If `hashed_keys` is set to `true`, user API keys can be stored in a hashed
-format. Use the inclided password hashing utility to generate API key hashes:
+If `hashed_keys` is set to `true`, API keys can be stored in a hashed format.
+Use the inclided password hashing utility to generate API key hashes:
 
     $ bin/hash_key mypassword
     $2y$10$Ogui0BV5HRnWj1pD6G83ZOh0V.yXk8E1SNtiL4Wn6.Hv96ZO.YGuq
 
-Authenticated requests can be made using the `username` and `api_key` query
-string parameters: `http://localhost:8000/verify?username=myuser&api_key=mypassword`
+Authenticated requests use the `username` and `api_key` query string parameters
+to pass credentials, ie: `http://localhost:8000/verify?username=myuser&api_key=mypassword`
 
 ## Tests
 
