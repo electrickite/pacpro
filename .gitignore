@@ -3,6 +3,7 @@ vendor/*
 composer.phar
 /log/*.log
 /packages
+phpunit.xml
 
 # OSX hidden files
 .DS_Store
