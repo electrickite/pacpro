@@ -31,7 +31,7 @@ $container['view'] = function ($c) {
 
     // Instantiate and add Slim specific extension
     $uri = $c['request']->getUri()->withBasePath('');
-    $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $c['request']->getUri()));
+    $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $uri));
 
     return $view;
 };
