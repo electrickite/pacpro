@@ -83,7 +83,7 @@ $app->get('/download/{signature}', function (Request $request, Response $respons
 
     if ($get_url) {
         $path = $this->router->pathFor('download', ['signature' => $package->signature], $this->view['auth']);
-        $url = $request->getUri()->getBaseUrl() . $path;
+        $url = $request->getUri()->withBasePath('')->getBaseUrl() . $path;
 
         return $response
             ->withHeader('Content-Type', 'text/plain')
